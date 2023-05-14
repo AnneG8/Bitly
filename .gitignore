@@ -1,0 +1,20 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+**/__pycache__
+.replit
+replit_zip_error_log.txt
+replit.nix
+**/*.json
+poetry.lock
+pyproject.toml
+
+# Unit test / coverage reports
+.cache
+.config
