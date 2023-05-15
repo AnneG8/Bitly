@@ -66,7 +66,6 @@ def main():
     parser.add_argument('url')
 
     url = parser.parse_args().url
-    urlparse(url)    
     try:
         is_url_correct(url)
         if(is_bitlink(token, url)):
