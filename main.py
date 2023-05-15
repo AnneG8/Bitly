@@ -61,7 +61,7 @@ def count_clicks(token, link):
 
 def main():
     load_dotenv()
-    TOKEN = os.getenv('BITLY_TOKEN')
+    token = os.getenv('BITLY_TOKEN')
     parser = argparse.ArgumentParser()
     parser.add_argument('url')
 
@@ -69,11 +69,11 @@ def main():
     urlparse(url)    
     try:
         is_url_correct(url)
-        if(is_bitlink(TOKEN, url)):
-            clicks_count = count_clicks(TOKEN, url)
+        if(is_bitlink(token, url)):
+            clicks_count = count_clicks(token, url)
             print(f"По вашей ссылке прошли {clicks_count} раз(а)")
         else:
-            bitlink = shorten_link(TOKEN, url)
+            bitlink = shorten_link(token, url)
             print("Битлинк: ", bitlink)
     except UrlError as err: 
         print(err)
