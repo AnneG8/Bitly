@@ -5,20 +5,6 @@ import os
 import argparse
 
 
-class UrlError(Exception):
-    def __init__(self):
-        self.value = "Вы передали некорректную ссылку"
-    def __str__(self):
-        return self.value
-
-
-def is_url_correct(url):
-    try:
-        requests.get(url)
-    except:
-        raise UrlError
-
-
 def get_bitlink_path(link):
     parsed = urlparse(link)
     return f"{parsed.netloc}{parsed.path}"
@@ -64,20 +50,16 @@ def main():
     token = os.getenv('BITLY_TOKEN')
     parser = argparse.ArgumentParser()
     parser.add_argument('url')
-
     url = parser.parse_args().url
-    try:
-        is_url_correct(url)
-        if(is_bitlink(token, url)):
-            clicks_count = count_clicks(token, url)
-            print(f"По вашей ссылке прошли {clicks_count} раз(а)")
-        else:
+    if(is_bitlink(token, url)):
+        clicks_count = count_clicks(token, url)
+        print(f"По вашей ссылке прошли {clicks_count} раз(а)")
+    else:
+        try:
             bitlink = shorten_link(token, url)
             print("Битлинк: ", bitlink)
-    except UrlError as err: 
-        print(err)
-    except requests.exceptions.HTTPError as err:
-        print(f"Невозможно получить ответ, {err}")
+        except requests.exceptions.HTTPError as err:
+            print(f"Невозможно получить ответ, {err}")
 
 
 if __name__ == "__main__":
